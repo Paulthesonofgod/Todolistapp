@@ -1,13 +1,21 @@
-todos = []
-
 while True:
     user_action = input("Type add, show, edit or exit: ")
     user_action = user_action.strip()
 
     match user_action:
+        # Add case which writes the todo list into an external file todos.txt
         case 'add' | 'Add' | '+':
-            todo = input("Enter a todo: ")
+            todo = input("Enter a todo: ") + "\n"
+
+            file = open('todos.txt', 'r')
+            todos = file.readlines()
+            file.close()
+
             todos.append(todo)
+
+            file = open('todos.txt', 'w')
+            file.writelines(todos)
+            file.close()
         case 'show' | 'Show' | 'Display':
             for index, item in enumerate(todos):
                 row = f"{index + 1}.{item}"
