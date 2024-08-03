@@ -7,36 +7,50 @@ while True:
         case 'add' | 'Add' | '+':
             todo = input("Enter a todo: ") + "\n"
 
-            with open('todos.txt', 'r') as file:
+            with open('files/todos.txt', 'r') as file:
                 todos = file.readlines()
 
             todos.append(todo)
 
-            with open('todos.txt', 'w') as file:
+            with open('files/todos.txt', 'w') as file:
                 file.writelines(todos)
         case 'show' | 'Show' | 'Display':
 
-            with open('todos.txt', 'r') as file:
+            with open('files/todos.txt', 'r') as file:
                 todos = file.readlines()
 
             # new_todos = [item.strip('\n') for item in todos]  = list comprehension
 
             for index, item in enumerate(todos):
-                todos = todos.strip('\n')
+                item = item.strip('\n')
                 row = f"{index + 1}.{item}"
                 print(row)
         case 'edit':
             number = int(input("Number of the todo to edit: "))
             number = number - 1
 
-            with open('todos.txt', 'r') as file:
+            with open('files/todos.txt', 'r') as file:
                 todos = file.readlines()
-                
+
             new_todo = input("Enter new todo: ")
-            todos[number] = new_todo
+            todos[number] = new_todo + '\n'
+
+            with open('files/todos.txt', 'w') as file:
+                todos = file.writelines()
         case "complete":
             number = int(input("Number of the todo to complete: "))
+
+            with open('files/todos.txt', 'r') as file:
+                todos = file.readlines()
+
+            todo_to_remove = todos[number - 1]
+
             todos.pop(number) - 1
+
+            with open('files/todos.txt', 'w') as file:
+                todos = file.writelines()
+
+            print(f"Todo {todo_to_remove} was removed from the list")
 
         case 'exit':
             break
