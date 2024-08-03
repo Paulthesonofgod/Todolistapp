@@ -7,22 +7,20 @@ while True:
         case 'add' | 'Add' | '+':
             todo = input("Enter a todo: ") + "\n"
 
-            file = open('files/todos.txt', 'r')
-            todos = file.readlines()
-            file.close()
+            with open('todos.txt', 'r') as file:
+                todos = file.readlines()
 
             todos.append(todo)
 
-            file = open('files/todos.txt', 'w')
-            file.writelines(todos)
-            file.close()
+            with open('todos.txt', 'w') as file:
+                file.writelines(todos)
         case 'show' | 'Show' | 'Display':
 
             file = open('files/todos.txt', 'r')
             todos = file.readlines()
             file.close()
 
-            # new_todos = [item.strip('\n') for item in todos]
+            # new_todos = [item.strip('\n') for item in todos]  = list comprehension
 
             for index, item in enumerate(todos):
                 todos = todos.strip('\n')
