@@ -16,9 +16,8 @@ while True:
                 file.writelines(todos)
         case 'show' | 'Show' | 'Display':
 
-            file = open('files/todos.txt', 'r')
-            todos = file.readlines()
-            file.close()
+            with open('todos.txt', 'r') as file:
+                todos = file.readlines()
 
             # new_todos = [item.strip('\n') for item in todos]  = list comprehension
 
@@ -29,6 +28,10 @@ while True:
         case 'edit':
             number = int(input("Number of the todo to edit: "))
             number = number - 1
+
+            with open('todos.txt', 'r') as file:
+                todos = file.readlines()
+                
             new_todo = input("Enter new todo: ")
             todos[number] = new_todo
         case "complete":
