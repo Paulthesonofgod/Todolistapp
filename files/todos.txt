@@ -1,4 +1,2 @@
-prepare
-shower
-play
-fix
+Create a todo list
+clean the bag
