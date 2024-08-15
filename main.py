@@ -1,22 +1,26 @@
+def get_todos():
+    with open('files/todos.txt', 'r') as file:
+        todos = file.readlines()
+    return todos
+
+
 while True:
     user_action = input("Type add, show, edit or exit: ")
     user_action = user_action.strip()
 
     # Add case which writes the todo list into an external file todos.txt
-    if 'add' in user_action:
+    if user_action.startswith('add'):
         todo = user_action[4:]
 
-        with open('files/todos.txt', 'r') as file:
-            todos = file.readlines()
+        todos = get_todos()
 
-        todos.append(todo)
+        todos.append(todo + '\n')
 
         with open('files/todos.txt', 'w') as file:
             file.writelines(todos)
-    elif 'show' in user_action:
+    elif user_action.startswith('show'):
 
-        with open('files/todos.txt', 'r') as file:
-            todos = file.readlines()
+        todos = get_todos()
 
         # new_todos = [item.strip('\n') for item in todos]  = list comprehension
 
@@ -24,35 +28,46 @@ while True:
             item = item.strip('\n')
             row = f"{index + 1}.{item}"
             print(row)
-    elif 'edit' in user_action:
-        number = int(user_action[5:])
-        number = number - 1
+    elif user_action.startswith('edit'):
+        try:
+            number = int(user_action[5:])
+            print(number)
 
-        with open('files/todos.txt', 'r') as file:
-            todos = file.readlines()
+            number = number - 1
 
-        new_todo = input("Enter new todo: ")
-        todos[number] = new_todo + '\n'
+            todos = get_todos()
 
-        with open('files/todos.txt', 'w') as file:
-            todos = file.writelines(todos)
-    elif "complete" in user_action:
-        number = int(user_action[9:])
+            new_todo = input("Enter new todo: ")
+            todos[number] = new_todo + '\n'
 
-        with open('files/todos.txt', 'r') as file:
-            todos = file.readlines()
+            with open('files/todos.txt', 'w') as file:
+                todos = file.writelines(todos)
+        except ValueError:
+            print("Invalid command.")
+            continue
 
-        index = number - 1
+    elif user_action.startswith('complete'):
+        try:
+            number = int(user_action[9:])
 
-        todo_to_remove = todos[index].strip('\n')
-        todos.pop(index)
+            todos = get_todos()
 
-        with open('files/todos.txt', 'w') as file:
-            todos = file.writelines(todos)
+            index = number - 1
 
-        print(f"Todo {todo_to_remove} has been completed and was removed from the list")
+            todo_to_remove = todos[index].strip('\n')
+            todos.pop(index)
 
-    elif 'exit' in user_action:
+            with open('files/todos.txt', 'w') as file:
+                todos = file.writelines(todos)
+
+            print(f"Todo {todo_to_remove} has been completed and was removed from the list")
+        except ValueError:
+            print("Invalid Input")
+        except IndexError:
+            print("Not within range")
+            continue
+
+    elif user_action.startswith('exit'):
         break
     else:
         print("Command Invalid")
