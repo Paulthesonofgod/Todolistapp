@@ -1,0 +1,6 @@
+Temperatures
+5
+7
+3
+2
+9
