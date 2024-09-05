@@ -8,6 +8,6 @@ user_input = input("Enter a lower bound and an upper bound divided a comma (e.g.
 parsed = parse(user_input)
 
 # Pick a random int between the two numbers
-rand = random.randint(parsed['lower_bound'], parsed['upper_bound'])
+randy = random.randint(parsed['lower_bound'], parsed['upper_bound'])
 
-print(rand)
+print(randy)
