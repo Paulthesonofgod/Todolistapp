@@ -1,6 +1,7 @@
-Play Football
-futsal
-player
+Football
+Player
 Complete my Coding Sesh
 Master Python
-Hello World
+Clean the programClean the program
+My newest todo is added
+And Lastly
